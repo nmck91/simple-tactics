@@ -133,7 +133,8 @@ describe('useLocalStorage', () => {
   describe('Multiple instances', () => {
     it('shares state between hooks with same key', () => {
       const { result: result1 } = renderHook(() => useLocalStorage('shared-key', 'initial'))
-      const { result: result2 } = renderHook(() => useLocalStorage('shared-key', 'initial'))
+      // Second hook instance to demonstrate shared localStorage
+      renderHook(() => useLocalStorage('shared-key', 'initial'))
 
       act(() => {
         const [, setValue] = result1.current

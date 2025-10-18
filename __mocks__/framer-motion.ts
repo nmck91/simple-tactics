@@ -58,10 +58,10 @@ const useMotionValue = (initial: any) => ({
 })
 
 // Mock useTransform hook
-const useTransform = (value: any, input: any, output: any) => value
+const useTransform = (value: any, _input: any, _output: any) => value
 
 // Mock useSpring hook
-const useSpring = (value: any, config?: any) => value
+const useSpring = (value: any, _config?: any) => value
 
 // Mock useScroll hook
 const useScroll = () => ({
