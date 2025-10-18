@@ -69,7 +69,7 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && false  # Disabled - using Vercel instead
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
@@ -100,13 +100,13 @@ jobs:
         uses: actions/deploy-pages@v2
 
   # ============================================================================
-  # Deploy to Vercel (Alternative)
+  # Deploy to Vercel
   # ============================================================================
   deploy-vercel:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main' && false  # Disabled by default, set to true to enable
+    if: github.ref == 'refs/heads/main'  # Enabled for Vercel deployment
 
     steps:
       - name: Checkout code
@@ -161,8 +161,8 @@ jobs:
   verify-deployment:
     name: Verify Deployment
     runs-on: ubuntu-latest
-    needs: deploy-github-pages
-    if: github.ref == 'refs/heads/main'
+    needs: deploy-vercel
+    if: github.ref == 'refs/heads/main' && false  # Disabled - Vercel handles verification
 
     steps:
       - name: Checkout code
@@ -209,7 +209,7 @@ jobs:
   deployment-summary:
     name: Deployment Summary
     runs-on: ubuntu-latest
-    needs: [build, deploy-github-pages, verify-deployment]
+    needs: [build, deploy-vercel]
     if: always()
 
     steps:
@@ -218,7 +218,8 @@ jobs:
           echo "# Deployment Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Build Status:** ${{ needs.build.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Deploy Status:** ${{ needs.deploy-github-pages.result }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Verification Status:** ${{ needs.verify-deployment.result }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Deploy Status:** ${{ needs.deploy-vercel.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Deployment URL:** https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Deployment URL:** Check Vercel dashboard for deployment URL" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Visit https://vercel.com to view your deployment" >> $GITHUB_STEP_SUMMARY
