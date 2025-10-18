@@ -1,0 +1,313 @@
+{
+  "id": "build-up",
+  "title": "Build-Up Play",
+  "category": "passing",
+  "description": {
+    "kidSpeak": "We pass the ball like a treasure! Start from our Super Shield (goalkeeper) and carefully move it forward. Everyone gets a turn touching the ball. No rushing - slow and steady wins the race!",
+    "tactical": "Controlled possession-based approach starting from the goalkeeper. Players spread wide to create passing lanes. Emphasis on patient ball circulation through the thirds. Midfielders drop deep to receive, defenders stay available for backwards passes to reset.",
+    "metaphor": "Like building a tower with blocks - you need a strong foundation (defense) before you can reach the top (goal)!"
+  },
+  "characterRoles": {
+    "forward": "Goal Getters",
+    "midfielder": "Magic Passers",
+    "defender": "Base Builders",
+    "goalkeeper": "Super Shield"
+  },
+  "whenToUse": [
+    "Opposition is pressing high (creates space in behind)",
+    "Your team is technically skilled at passing",
+    "You have a numerical advantage in midfield",
+    "Field conditions are good (not muddy or bumpy)",
+    "You want to control the tempo of the game"
+  ],
+  "formats": {
+    "5v5": {
+      "players": [
+        {
+          "id": "player-1",
+          "position": { "x": 50, "y": 5 },
+          "role": "goalkeeper"
+        },
+        {
+          "id": "player-2",
+          "position": { "x": 25, "y": 25 },
+          "role": "defender"
+        },
+        {
+          "id": "player-3",
+          "position": { "x": 75, "y": 25 },
+          "role": "defender"
+        },
+        {
+          "id": "player-4",
+          "position": { "x": 35, "y": 60 },
+          "role": "forward"
+        },
+        {
+          "id": "player-5",
+          "position": { "x": 65, "y": 60 },
+          "role": "forward"
+        }
+      ],
+      "animation": {
+        "keyframes": [
+          {
+            "playerId": "player-1",
+            "startPosition": { "x": 50, "y": 5 },
+            "endPosition": { "x": 50, "y": 15 },
+            "duration": 800,
+            "delay": 0
+          },
+          {
+            "playerId": "player-2",
+            "startPosition": { "x": 25, "y": 25 },
+            "endPosition": { "x": 20, "y": 30 },
+            "duration": 800,
+            "delay": 400
+          },
+          {
+            "playerId": "player-3",
+            "startPosition": { "x": 75, "y": 25 },
+            "endPosition": { "x": 80, "y": 30 },
+            "duration": 800,
+            "delay": 400
+          },
+          {
+            "playerId": "player-4",
+            "startPosition": { "x": 35, "y": 60 },
+            "endPosition": { "x": 25, "y": 55 },
+            "duration": 1000,
+            "delay": 800
+          },
+          {
+            "playerId": "player-5",
+            "startPosition": { "x": 65, "y": 60 },
+            "endPosition": { "x": 75, "y": 55 },
+            "duration": 1000,
+            "delay": 800
+          }
+        ],
+        "totalDuration": 2200,
+        "loop": true
+      },
+      "notes": "Goalkeeper initiates play with a short pass. Defenders spread wide to create passing angles. Forwards drop deep to receive if needed."
+    },
+    "7v7": {
+      "players": [
+        {
+          "id": "player-1",
+          "position": { "x": 50, "y": 5 },
+          "role": "goalkeeper"
+        },
+        {
+          "id": "player-2",
+          "position": { "x": 25, "y": 22 },
+          "role": "defender"
+        },
+        {
+          "id": "player-3",
+          "position": { "x": 50, "y": 20 },
+          "role": "defender"
+        },
+        {
+          "id": "player-4",
+          "position": { "x": 75, "y": 22 },
+          "role": "defender"
+        },
+        {
+          "id": "player-5",
+          "position": { "x": 35, "y": 45 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-6",
+          "position": { "x": 65, "y": 45 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-7",
+          "position": { "x": 50, "y": 70 },
+          "role": "forward"
+        }
+      ],
+      "animation": {
+        "keyframes": [
+          {
+            "playerId": "player-1",
+            "startPosition": { "x": 50, "y": 5 },
+            "endPosition": { "x": 50, "y": 12 },
+            "duration": 600,
+            "delay": 0
+          },
+          {
+            "playerId": "player-3",
+            "startPosition": { "x": 50, "y": 20 },
+            "endPosition": { "x": 50, "y": 25 },
+            "duration": 800,
+            "delay": 300
+          },
+          {
+            "playerId": "player-2",
+            "startPosition": { "x": 25, "y": 22 },
+            "endPosition": { "x": 18, "y": 28 },
+            "duration": 800,
+            "delay": 500
+          },
+          {
+            "playerId": "player-4",
+            "startPosition": { "x": 75, "y": 22 },
+            "endPosition": { "x": 82, "y": 28 },
+            "duration": 800,
+            "delay": 500
+          },
+          {
+            "playerId": "player-5",
+            "startPosition": { "x": 35, "y": 45 },
+            "endPosition": { "x": 30, "y": 40 },
+            "duration": 1000,
+            "delay": 800
+          },
+          {
+            "playerId": "player-6",
+            "startPosition": { "x": 65, "y": 45 },
+            "endPosition": { "x": 70, "y": 40 },
+            "duration": 1000,
+            "delay": 800
+          },
+          {
+            "playerId": "player-7",
+            "startPosition": { "x": 50, "y": 70 },
+            "endPosition": { "x": 50, "y": 60 },
+            "duration": 1000,
+            "delay": 1200
+          }
+        ],
+        "totalDuration": 2400,
+        "loop": true
+      },
+      "notes": "Center back receives from goalkeeper. Wide defenders offer width. Midfielders drop to create numerical advantage in buildup. Forward checks back if no penetration possible."
+    },
+    "9v9": {
+      "players": [
+        {
+          "id": "player-1",
+          "position": { "x": 50, "y": 5 },
+          "role": "goalkeeper"
+        },
+        {
+          "id": "player-2",
+          "position": { "x": 18, "y": 20 },
+          "role": "defender"
+        },
+        {
+          "id": "player-3",
+          "position": { "x": 38, "y": 18 },
+          "role": "defender"
+        },
+        {
+          "id": "player-4",
+          "position": { "x": 62, "y": 18 },
+          "role": "defender"
+        },
+        {
+          "id": "player-5",
+          "position": { "x": 82, "y": 20 },
+          "role": "defender"
+        },
+        {
+          "id": "player-6",
+          "position": { "x": 30, "y": 42 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-7",
+          "position": { "x": 50, "y": 40 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-8",
+          "position": { "x": 70, "y": 42 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-9",
+          "position": { "x": 50, "y": 68 },
+          "role": "forward"
+        }
+      ],
+      "animation": {
+        "keyframes": [
+          {
+            "playerId": "player-1",
+            "startPosition": { "x": 50, "y": 5 },
+            "endPosition": { "x": 50, "y": 10 },
+            "duration": 500,
+            "delay": 0
+          },
+          {
+            "playerId": "player-3",
+            "startPosition": { "x": 38, "y": 18 },
+            "endPosition": { "x": 38, "y": 23 },
+            "duration": 700,
+            "delay": 300
+          },
+          {
+            "playerId": "player-4",
+            "startPosition": { "x": 62, "y": 18 },
+            "endPosition": { "x": 62, "y": 23 },
+            "duration": 700,
+            "delay": 300
+          },
+          {
+            "playerId": "player-2",
+            "startPosition": { "x": 18, "y": 20 },
+            "endPosition": { "x": 12, "y": 28 },
+            "duration": 800,
+            "delay": 600
+          },
+          {
+            "playerId": "player-5",
+            "startPosition": { "x": 82, "y": 20 },
+            "endPosition": { "x": 88, "y": 28 },
+            "duration": 800,
+            "delay": 600
+          },
+          {
+            "playerId": "player-7",
+            "startPosition": { "x": 50, "y": 40 },
+            "endPosition": { "x": 50, "y": 32 },
+            "duration": 900,
+            "delay": 900
+          },
+          {
+            "playerId": "player-6",
+            "startPosition": { "x": 30, "y": 42 },
+            "endPosition": { "x": 25, "y": 38 },
+            "duration": 900,
+            "delay": 1000
+          },
+          {
+            "playerId": "player-8",
+            "startPosition": { "x": 70, "y": 42 },
+            "endPosition": { "x": 75, "y": 38 },
+            "duration": 900,
+            "delay": 1000
+          },
+          {
+            "playerId": "player-9",
+            "startPosition": { "x": 50, "y": 68 },
+            "endPosition": { "x": 50, "y": 58 },
+            "duration": 1000,
+            "delay": 1400
+          }
+        ],
+        "totalDuration": 2600,
+        "loop": true
+      },
+      "notes": "Full back-line spreads wide. Central defenders step forward with ball. Central midfielder drops between defenders to create diamond shape. Wide midfielders hug touchlines. Striker checks to feet if buildup stalls."
+    }
+  },
+  "thumbnail": "/images/tactics/build-up-thumb.svg",
+  "difficulty": "beginner",
+  "ageGroup": "5-7"
+}

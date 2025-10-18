@@ -1,0 +1,226 @@
+name: Bundle Size Tracking
+
+on:
+  pull_request:
+    branches: [main, develop]
+  push:
+    branches: [main, develop]
+
+jobs:
+  # ============================================================================
+  # Track Bundle Size Changes
+  # ============================================================================
+  bundle-size:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Analyze bundle size
+        id: analyze
+        run: |
+          # Get total bundle size
+          BUNDLE_SIZE=$(du -sb dist | awk '{print $1}')
+          BUNDLE_SIZE_MB=$(echo "scale=2; $BUNDLE_SIZE / 1048576" | bc)
+          MAX_SIZE=$((2 * 1024 * 1024))
+          MAX_SIZE_MB=2
+
+          echo "bundle_size=$BUNDLE_SIZE" >> $GITHUB_OUTPUT
+          echo "bundle_size_mb=$BUNDLE_SIZE_MB" >> $GITHUB_OUTPUT
+          echo "max_size=$MAX_SIZE" >> $GITHUB_OUTPUT
+          echo "max_size_mb=$MAX_SIZE_MB" >> $GITHUB_OUTPUT
+
+          # Calculate percentage of max size
+          PERCENTAGE=$(echo "scale=2; ($BUNDLE_SIZE / $MAX_SIZE) * 100" | bc)
+          echo "percentage=$PERCENTAGE" >> $GITHUB_OUTPUT
+
+          # Get breakdown by file type
+          echo "### Bundle Breakdown" >> bundle-analysis.txt
+          echo "" >> bundle-analysis.txt
+          echo "| File Type | Size | Count |" >> bundle-analysis.txt
+          echo "|-----------|------|-------|" >> bundle-analysis.txt
+
+          # JavaScript files
+          JS_SIZE=$(find dist -name "*.js" -type f -exec du -cb {} + | tail -1 | awk '{print $1}')
+          JS_SIZE_KB=$(echo "scale=2; $JS_SIZE / 1024" | bc)
+          JS_COUNT=$(find dist -name "*.js" -type f | wc -l)
+          echo "| JavaScript | ${JS_SIZE_KB} KB | $JS_COUNT |" >> bundle-analysis.txt
+
+          # CSS files
+          CSS_SIZE=$(find dist -name "*.css" -type f -exec du -cb {} + | tail -1 | awk '{print $1}')
+          CSS_SIZE_KB=$(echo "scale=2; $CSS_SIZE / 1024" | bc)
+          CSS_COUNT=$(find dist -name "*.css" -type f | wc -l)
+          echo "| CSS | ${CSS_SIZE_KB} KB | $CSS_COUNT |" >> bundle-analysis.txt
+
+          # HTML files
+          HTML_SIZE=$(find dist -name "*.html" -type f -exec du -cb {} + | tail -1 | awk '{print $1}')
+          HTML_SIZE_KB=$(echo "scale=2; $HTML_SIZE / 1024" | bc)
+          HTML_COUNT=$(find dist -name "*.html" -type f | wc -l)
+          echo "| HTML | ${HTML_SIZE_KB} KB | $HTML_COUNT |" >> bundle-analysis.txt
+
+          # Images
+          IMG_SIZE=$(find dist -name "*.png" -o -name "*.jpg" -o -name "*.svg" -o -name "*.webp" -type f -exec du -cb {} + 2>/dev/null | tail -1 | awk '{print $1}' || echo 0)
+          IMG_SIZE_KB=$(echo "scale=2; $IMG_SIZE / 1024" | bc)
+          IMG_COUNT=$(find dist \( -name "*.png" -o -name "*.jpg" -o -name "*.svg" -o -name "*.webp" \) -type f 2>/dev/null | wc -l)
+          echo "| Images | ${IMG_SIZE_KB} KB | $IMG_COUNT |" >> bundle-analysis.txt
+
+          # JSON data
+          JSON_SIZE=$(find dist -name "*.json" -type f -exec du -cb {} + 2>/dev/null | tail -1 | awk '{print $1}' || echo 0)
+          JSON_SIZE_KB=$(echo "scale=2; $JSON_SIZE / 1024" | bc)
+          JSON_COUNT=$(find dist -name "*.json" -type f 2>/dev/null | wc -l)
+          echo "| JSON | ${JSON_SIZE_KB} KB | $JSON_COUNT |" >> bundle-analysis.txt
+
+          echo "" >> bundle-analysis.txt
+          echo "**Total Bundle Size:** ${BUNDLE_SIZE_MB} MB" >> bundle-analysis.txt
+          echo "**Maximum Allowed:** ${MAX_SIZE_MB} MB" >> bundle-analysis.txt
+          echo "**Usage:** ${PERCENTAGE}% of maximum" >> bundle-analysis.txt
+
+      - name: Check bundle size limit
+        run: |
+          BUNDLE_SIZE=${{ steps.analyze.outputs.bundle_size }}
+          MAX_SIZE=${{ steps.analyze.outputs.max_size }}
+          BUNDLE_SIZE_MB=${{ steps.analyze.outputs.bundle_size_mb }}
+          PERCENTAGE=${{ steps.analyze.outputs.percentage }}
+
+          echo "Bundle size: ${BUNDLE_SIZE_MB} MB (${PERCENTAGE}% of 2 MB limit)"
+
+          if (( $(echo "$BUNDLE_SIZE > $MAX_SIZE" | bc -l) )); then
+            echo "❌ Bundle size exceeds 2MB limit (NFR6)"
+            exit 1
+          elif (( $(echo "$PERCENTAGE > 90" | bc -l) )); then
+            echo "⚠️  Warning: Bundle size is approaching the 2MB limit (${PERCENTAGE}%)"
+          else
+            echo "✅ Bundle size within acceptable limits"
+          fi
+
+      - name: Compare with base branch (PR only)
+        if: github.event_name == 'pull_request'
+        id: compare
+        run: |
+          # Checkout base branch
+          git fetch origin ${{ github.base_ref }}
+          git checkout origin/${{ github.base_ref }}
+
+          # Build base branch
+          npm ci
+          npm run build
+
+          # Get base bundle size
+          BASE_SIZE=$(du -sb dist | awk '{print $1}')
+          BASE_SIZE_MB=$(echo "scale=2; $BASE_SIZE / 1048576" | bc)
+
+          # Checkout PR branch again
+          git checkout ${{ github.head_ref }}
+
+          # Calculate difference
+          CURRENT_SIZE=${{ steps.analyze.outputs.bundle_size }}
+          DIFF=$(($CURRENT_SIZE - $BASE_SIZE))
+          DIFF_MB=$(echo "scale=2; $DIFF / 1048576" | bc)
+          DIFF_PERCENT=$(echo "scale=2; ($DIFF / $BASE_SIZE) * 100" | bc)
+
+          echo "base_size=$BASE_SIZE" >> $GITHUB_OUTPUT
+          echo "base_size_mb=$BASE_SIZE_MB" >> $GITHUB_OUTPUT
+          echo "diff=$DIFF" >> $GITHUB_OUTPUT
+          echo "diff_mb=$DIFF_MB" >> $GITHUB_OUTPUT
+          echo "diff_percent=$DIFF_PERCENT" >> $GITHUB_OUTPUT
+
+          # Determine status emoji
+          if [ $DIFF -gt 0 ]; then
+            echo "status=📈 Increased" >> $GITHUB_OUTPUT
+            echo "emoji=📈" >> $GITHUB_OUTPUT
+          elif [ $DIFF -lt 0 ]; then
+            echo "status=📉 Decreased" >> $GITHUB_OUTPUT
+            echo "emoji=📉" >> $GITHUB_OUTPUT
+          else
+            echo "status=➡️ No change" >> $GITHUB_OUTPUT
+            echo "emoji=➡️" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment on PR with bundle size analysis
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const bundleAnalysis = fs.readFileSync('bundle-analysis.txt', 'utf8');
+
+            const currentSize = '${{ steps.analyze.outputs.bundle_size_mb }}';
+            const baseSize = '${{ steps.compare.outputs.base_size_mb }}';
+            const diff = '${{ steps.compare.outputs.diff_mb }}';
+            const diffPercent = '${{ steps.compare.outputs.diff_percent }}';
+            const status = '${{ steps.compare.outputs.status }}';
+            const percentage = '${{ steps.analyze.outputs.percentage }}';
+
+            let statusEmoji = '✅';
+            let statusMessage = 'Bundle size is within limits';
+
+            if (parseFloat(percentage) > 100) {
+              statusEmoji = '❌';
+              statusMessage = 'Bundle size **exceeds** the 2MB limit!';
+            } else if (parseFloat(percentage) > 90) {
+              statusEmoji = '⚠️';
+              statusMessage = 'Bundle size is approaching the 2MB limit';
+            }
+
+            const comment = `## ${statusEmoji} Bundle Size Report
+
+            ${statusMessage}
+
+            ### Size Comparison
+
+            | | Size | Change |
+            |---|---|---|
+            | **Base (${context.payload.pull_request.base.ref})** | ${baseSize} MB | - |
+            | **PR (${context.payload.pull_request.head.ref})** | ${currentSize} MB | ${status} ${diff} MB (${diffPercent}%) |
+            | **Limit** | 2.00 MB | ${percentage}% used |
+
+            ${bundleAnalysis}
+
+            ---
+            <sub>Bundle size tracking via [Bundle Size Workflow](.github/workflows/bundle-size.yml)</sub>`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Generate summary
+        run: |
+          cat bundle-analysis.txt >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "### Comparison with Base Branch" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "**Base:** ${{ steps.compare.outputs.base_size_mb }} MB" >> $GITHUB_STEP_SUMMARY
+            echo "**Current:** ${{ steps.analyze.outputs.bundle_size_mb }} MB" >> $GITHUB_STEP_SUMMARY
+            echo "**Difference:** ${{ steps.compare.outputs.status }}" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v3
+        with:
+          name: bundle-analysis
+          path: |
+            bundle-analysis.txt
+            dist/
+          retention-days: 30

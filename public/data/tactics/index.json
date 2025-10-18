@@ -1,0 +1,58 @@
+[
+  {
+    "id": "high-press",
+    "title": "High Press Attack",
+    "category": "pressing",
+    "thumbnail": "/images/tactics/high-press-thumb.svg",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "counter-press",
+    "title": "Counter Press",
+    "category": "pressing",
+    "thumbnail": "/images/tactics/counter-press-thumb.svg",
+    "difficulty": "advanced"
+  },
+  {
+    "id": "build-up",
+    "title": "Build-Up Play",
+    "category": "passing",
+    "thumbnail": "/images/tactics/build-up-thumb.svg",
+    "difficulty": "beginner"
+  },
+  {
+    "id": "switch-play",
+    "title": "Switch of Play",
+    "category": "passing",
+    "thumbnail": "/images/tactics/switch-play-thumb.svg",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "compact-defense",
+    "title": "Compact Defense",
+    "category": "defending",
+    "thumbnail": "/images/tactics/compact-defense-thumb.svg",
+    "difficulty": "beginner"
+  },
+  {
+    "id": "zonal-marking",
+    "title": "Zonal Marking",
+    "category": "defending",
+    "thumbnail": "/images/tactics/zonal-marking-thumb.svg",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "corner-kick",
+    "title": "Corner Kick Attack",
+    "category": "set-pieces",
+    "thumbnail": "/images/tactics/corner-kick-thumb.svg",
+    "difficulty": "beginner"
+  },
+  {
+    "id": "goal-kick",
+    "title": "Goal Kick Build-Up",
+    "category": "set-pieces",
+    "thumbnail": "/images/tactics/goal-kick-thumb.svg",
+    "difficulty": "beginner"
+  }
+]
