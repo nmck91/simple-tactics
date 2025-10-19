@@ -42,6 +42,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
 
+### Production Deployment
+
+🚀 **Live App**: [https://simple-tactics-rmrnjjdmn-niall-mckinneys-projects.vercel.app](https://simple-tactics-rmrnjjdmn-niall-mckinneys-projects.vercel.app)
+
 ---
 
 ## 📁 Project Structure
@@ -214,10 +218,10 @@ describe('TacticCard', () => {
 # Build static export
 npm run build
 
-# Output directory: /dist
-# - dist/index.html
-# - dist/_next/static/...
-# - dist/data/tactics/...
+# Output directory: /out
+# - out/index.html
+# - out/_next/static/...
+# - out/data/tactics/...
 ```
 
 ### Deployment
@@ -231,12 +235,18 @@ vercel deploy
 **Netlify:**
 
 ```bash
-netlify deploy --prod --dir=dist
+netlify deploy --prod --dir=out
 ```
 
 **Static Hosting (GitHub Pages, S3, etc.):**
 
-Upload contents of `/dist` directory.
+Upload contents of `/out` directory.
+
+### CI/CD
+
+- **GitHub Actions**: Automatic linting, testing, and building on every push
+- **Vercel**: Automatic deployment on push to `main` branch
+- **Preview Deployments**: Automatic preview URLs for pull requests
 
 ---
 
