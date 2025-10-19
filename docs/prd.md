@@ -1,8 +1,8 @@
 # Simple Tactics Product Requirements Document (PRD)
 
-**Version:** v1.1
-**Date:** 2025-10-17
-**Author:** John (PM)
+**Version:** v1.3
+**Date:** 2025-10-18
+**Author:** Sarah (Product Owner)
 **Status:** Ready for Architecture Phase
 
 ---
@@ -55,6 +55,8 @@ Existing solutions (CoachNow, TacticalPad, TeamSnap) are elite-focused professio
 |------|---------|-------------|--------|
 | 2025-10-17 | v1.0 | Initial PRD creation based on Project Brief | John (PM) |
 | 2025-10-17 | v1.1 | Added Out of Scope section, MVP Timeline, and User Flow Diagrams per checklist recommendations | John (PM) |
+| 2025-10-18 | v1.2 | Enhanced Epic 1 Story 1.5: Added Framer Motion installation and animation prototype validation to address early technical risk identification (PO Master Checklist Section 1.4 finding) | Sarah (PO) |
+| 2025-10-18 | v1.3 | Fixed UI/UX risks (PO Checklist Section 4): Added theme system foundation to Epic 1 Story 1.1 (AC #8-9) for early architecture validation, and added Story 2.8 for comprehensive error boundaries and loading states | Sarah (PO) |
 
 ---
 
@@ -401,6 +403,8 @@ so that I have a solid foundation with type safety and rapid styling capabilitie
 5. Development server runs successfully with hot module replacement (HMR)
 6. `package.json` includes scripts for `dev`, `build`, `lint`, and `preview`
 7. `.gitignore` configured to exclude `node_modules`, `dist`, and IDE-specific files
+8. **Dual-theme CSS variable system established in Tailwind config** with placeholder color tokens for `superhero` and `professional` themes (validates theme architecture early, visual assets defer to Epic 2)
+9. **Theme provider skeleton created** (`lib/theme-context.tsx`) with basic theme switching logic using CSS classes (validates state management approach before Epic 2 visual implementation)
 
 ---
 
@@ -460,7 +464,7 @@ so that tactics data is maintainable, version-controlled, and easy for contribut
 
 ---
 
-### Story 1.5: Implement Canvas-Based Field Rendering with Player Positions
+### Story 1.5: Implement Canvas-Based Field Rendering with Player Positions and Animation Prototype
 
 As a volunteer coach,
 I want to see a visual soccer field with player positions when I select a tactic,
@@ -476,6 +480,9 @@ so that I can understand the positional setup before showing it to my team.
 6. Visual contrast is sufficient for outdoor readability (bright colors, thick lines)
 7. Touch-friendly back button navigates from detail view to tactics grid
 8. Selected tactic title and description displayed above or below field canvas
+9. **Framer Motion library installed and integrated into project** (early technical risk validation)
+10. **Prototype animation created showing at least 2 players moving between positions** to validate animation approach and performance
+11. **Frame rate measured on target devices** (iPhone 8 / Samsung Galaxy A-series or equivalent emulator) confirming ≥30 FPS is achievable with current architecture
 
 ---
 
@@ -650,6 +657,25 @@ so that I catch regressions in core user interactions.
 5. Test coverage for animation and theme features reaches at least 70%
 6. All integration tests pass in CI pipeline
 7. Tests run in reasonable time (<30 seconds for full suite)
+
+---
+
+### Story 2.8: Implement Error Boundaries and Loading States
+
+As a volunteer coach,
+I want clear feedback when something goes wrong or is loading,
+so that I understand what's happening and the app feels responsive and reliable.
+
+**Acceptance Criteria:**
+
+1. React Error Boundary component created wrapping the application to catch rendering errors gracefully
+2. Error boundary displays user-friendly error message with "Try Again" action (not technical stack traces)
+3. Loading skeleton components created for tactics grid and tactic detail view (placeholder cards/field while content loads)
+4. Tactics data loader includes error handling for failed JSON fetch with user-friendly error message
+5. Invalid tactic data (malformed JSON, missing required fields) displays helpful error instead of crashing
+6. Animation errors (invalid keyframes, performance failures) degrade gracefully without blocking the app
+7. Network error state displayed when offline and Service Worker hasn't cached tactics yet (with helpful message to try again when online)
+8. All error states tested manually and include recovery actions (retry button, back to home, etc.)
 
 ---
 

@@ -15,9 +15,6 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  // Output directory (match Vite convention)
-  distDir: 'dist',
-
   // Strict mode for better React practices
   reactStrictMode: true,
 
