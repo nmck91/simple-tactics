@@ -134,7 +134,7 @@ jobs:
           fail_ci_if_error: false
 
       - name: Archive test coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: matrix.node-version == 18
         with:
           name: test-coverage
@@ -181,7 +181,7 @@ jobs:
           fi
 
       - name: Archive build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-dist
           path: out/
