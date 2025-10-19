@@ -1,0 +1,25 @@
+/* Dual-theme CSS variable system for Simple Tactics */
+
+/* Base/Default theme variables */
+:root {
+  --color-primary: #3b82f6;
+  --color-secondary: #10b981;
+  --color-background: #ffffff;
+  --color-text: #1f2937;
+}
+
+/* Superhero theme - Bold, vibrant colors */
+[data-theme='superhero'] {
+  --color-primary: #ef4444;
+  --color-secondary: #f59e0b;
+  --color-background: #1e293b;
+  --color-text: #f8fafc;
+}
+
+/* Professional theme - Clean, corporate colors */
+[data-theme='professional'] {
+  --color-primary: #2563eb;
+  --color-secondary: #059669;
+  --color-background: #ffffff;
+  --color-text: #111827;
+}
