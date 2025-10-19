@@ -1,0 +1,243 @@
+{
+  "id": "compact-defense",
+  "title": "Compact Defense",
+  "category": "defending",
+  "description": {
+    "kidSpeak": "The Brick Walls stand close together like a strong fort! They make the space small so the other team can't pass through. The Super Shield stays ready in goal.",
+    "tactical": "Defensive strategy maintaining a compact shape with minimal space between defensive and midfield lines. Players stay narrow centrally and shift as a unit to prevent penetration through the middle.",
+    "metaphor": "Like a castle wall with no gaps - everyone stands shoulder to shoulder so nothing can get through!"
+  },
+  "characterRoles": {
+    "forward": "Rocket Racers",
+    "midfielder": "Busy Bees",
+    "defender": "Brick Walls",
+    "goalkeeper": "Super Shield"
+  },
+  "whenToUse": [
+    "Protecting a lead late in the game",
+    "Facing a team with strong attacking players",
+    "Your team is tired and needs to conserve energy",
+    "Playing on a wide field where staying compact is important",
+    "Opposition has fast wingers that you want to force inside"
+  ],
+  "formats": {
+    "5v5": {
+      "players": [
+        {
+          "id": "player-1",
+          "position": { "x": 50, "y": 10 },
+          "role": "goalkeeper"
+        },
+        {
+          "id": "player-2",
+          "position": { "x": 35, "y": 30 },
+          "role": "defender"
+        },
+        {
+          "id": "player-3",
+          "position": { "x": 65, "y": 30 },
+          "role": "defender"
+        },
+        {
+          "id": "player-4",
+          "position": { "x": 35, "y": 50 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-5",
+          "position": { "x": 65, "y": 50 },
+          "role": "midfielder"
+        }
+      ],
+      "animation": {
+        "keyframes": [
+          {
+            "playerId": "player-4",
+            "startPosition": { "x": 35, "y": 50 },
+            "endPosition": { "x": 45, "y": 40 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-5",
+            "startPosition": { "x": 65, "y": 50 },
+            "endPosition": { "x": 55, "y": 40 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-2",
+            "startPosition": { "x": 35, "y": 30 },
+            "endPosition": { "x": 45, "y": 25 },
+            "duration": 800,
+            "delay": 200
+          },
+          {
+            "playerId": "player-3",
+            "startPosition": { "x": 65, "y": 30 },
+            "endPosition": { "x": 55, "y": 25 },
+            "duration": 800,
+            "delay": 200
+          }
+        ],
+        "totalDuration": 1500,
+        "loop": true
+      },
+      "notes": "In 5v5, defenders and midfielders squeeze together centrally. Everyone drops back slightly to create layers of defense."
+    },
+    "7v7": {
+      "players": [
+        {
+          "id": "player-1",
+          "position": { "x": 50, "y": 10 },
+          "role": "goalkeeper"
+        },
+        {
+          "id": "player-2",
+          "position": { "x": 30, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-3",
+          "position": { "x": 50, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-4",
+          "position": { "x": 70, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-5",
+          "position": { "x": 40, "y": 48 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-6",
+          "position": { "x": 60, "y": 48 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-7",
+          "position": { "x": 50, "y": 65 },
+          "role": "forward"
+        }
+      ],
+      "animation": {
+        "keyframes": [
+          {
+            "playerId": "player-5",
+            "startPosition": { "x": 40, "y": 48 },
+            "endPosition": { "x": 45, "y": 38 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-6",
+            "startPosition": { "x": 60, "y": 48 },
+            "endPosition": { "x": 55, "y": 38 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-7",
+            "startPosition": { "x": 50, "y": 65 },
+            "endPosition": { "x": 50, "y": 55 },
+            "duration": 1200,
+            "delay": 200
+          }
+        ],
+        "totalDuration": 1500,
+        "loop": true
+      },
+      "notes": "Back three stay compact, midfield drops in to support. Forward works hard to delay opposition build-up. Maintain 10-15 yards between lines."
+    },
+    "9v9": {
+      "players": [
+        {
+          "id": "player-1",
+          "position": { "x": 50, "y": 10 },
+          "role": "goalkeeper"
+        },
+        {
+          "id": "player-2",
+          "position": { "x": 25, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-3",
+          "position": { "x": 42, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-4",
+          "position": { "x": 58, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-5",
+          "position": { "x": 75, "y": 28 },
+          "role": "defender"
+        },
+        {
+          "id": "player-6",
+          "position": { "x": 35, "y": 48 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-7",
+          "position": { "x": 50, "y": 48 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-8",
+          "position": { "x": 65, "y": 48 },
+          "role": "midfielder"
+        },
+        {
+          "id": "player-9",
+          "position": { "x": 50, "y": 68 },
+          "role": "forward"
+        }
+      ],
+      "animation": {
+        "keyframes": [
+          {
+            "playerId": "player-6",
+            "startPosition": { "x": 35, "y": 48 },
+            "endPosition": { "x": 40, "y": 38 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-7",
+            "startPosition": { "x": 50, "y": 48 },
+            "endPosition": { "x": 50, "y": 38 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-8",
+            "startPosition": { "x": 65, "y": 48 },
+            "endPosition": { "x": 60, "y": 38 },
+            "duration": 1000,
+            "delay": 0
+          },
+          {
+            "playerId": "player-9",
+            "startPosition": { "x": 50, "y": 68 },
+            "endPosition": { "x": 50, "y": 58 },
+            "duration": 1200,
+            "delay": 200
+          }
+        ],
+        "totalDuration": 1500,
+        "loop": true
+      },
+      "notes": "Back four stays narrow, midfield three drops in centrally. Everyone compresses toward the middle third. Striker provides outlet but tracks back when needed."
+    }
+  },
+  "thumbnail": "/images/tactics/compact-defense-thumb.svg",
+  "difficulty": "beginner",
+  "ageGroup": "5-7"
+}

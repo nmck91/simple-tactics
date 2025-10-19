@@ -1,23 +1,26 @@
 'use client'
 
 import Link from 'next/link'
+import { TacticCategory } from '@/lib/types'
 
 interface TacticCardProps {
   id: string
   title: string
-  category: 'pressing' | 'passing' | 'defending'
+  category: TacticCategory
 }
 
-const categoryColors = {
+const categoryColors: Record<TacticCategory, string> = {
   pressing: 'bg-red-500 hover:bg-red-600',
   passing: 'bg-blue-500 hover:bg-blue-600',
   defending: 'bg-purple-500 hover:bg-purple-600',
+  'set-pieces': 'bg-green-500 hover:bg-green-600',
 }
 
-const categoryLabels = {
+const categoryLabels: Record<TacticCategory, string> = {
   pressing: 'Pressing',
   passing: 'Passing',
   defending: 'Defending',
+  'set-pieces': 'Set Pieces',
 }
 
 export function TacticCard({ id, title, category }: TacticCardProps) {
